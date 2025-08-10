@@ -16,9 +16,20 @@ class VideoLiveWallpaperService : WallpaperService() {
 
         override fun onCreate(surfaceHolder: SurfaceHolder) {
             super.onCreate(surfaceHolder)
-            videoFilePath =
-                this@VideoLiveWallpaperService.openFileInput("video_live_wallpaper_file_path")
+            try {
+                videoFilePath = this@VideoLiveWallpaperService.openFileInput("video_live_wallpaper_file_path")
                     .bufferedReader().readText()
+                    
+                // Verify the file exists and is readable
+                val file = File(videoFilePath)
+                if (!file.exists() || !file.canRead()) {
+                    throw IOException("Video file is not accessible")
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                videoFilePath = null
+            }
+            
             val intentFilter = IntentFilter(VIDEO_PARAMS_CONTROL_ACTION)
             val receiver = object : BroadcastReceiver() {
                 override fun onReceive(context: Context, intent: Intent) {
@@ -37,27 +48,37 @@ class VideoLiveWallpaperService : WallpaperService() {
             super.onSurfaceCreated(holder)
                 val prefs = getSharedPreferences("moe.cyunrei.videolivewallpaper_preferences", Context.MODE_PRIVATE)
                 val looping = prefs.getBoolean("video_looping", false)
-            mediaPlayer = MediaPlayer().apply {
-                setSurface(holder.surface)
-                setDataSource(videoFilePath)
-                isLooping = looping
-                setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING)
-                prepare()
-                // Get the duration before starting playback
-                val duration = this.duration
-                // Calculate the timestamp of the last frame (seek to 99.9% of the duration to ensure we get the last frame)
-                val lastFramePosition = (duration * 0.999).toInt()
-                
-                setOnCompletionListener { mp ->
-                    if (!looping) {
-                        // First seek to the calculated last frame position
-                        mp.seekTo(lastFramePosition)
-                        // Then pause to hold on that frame
-                        mp.pause()
-                    }
+            try {
+                if (videoFilePath == null) {
+                    return
                 }
                 
-                start()
+                mediaPlayer = MediaPlayer().apply {
+                    setSurface(holder.surface)
+                    setDataSource(videoFilePath)
+                    isLooping = looping
+                    setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING)
+                    prepare()
+                    // Get the duration before starting playback
+                    val duration = this.duration
+                    // Calculate the timestamp of the last frame (seek to 99.9% of the duration to ensure we get the last frame)
+                    val lastFramePosition = (duration * 0.999).toInt()
+                    
+                    setOnCompletionListener { mp ->
+                        if (!looping) {
+                            // First seek to the calculated last frame position
+                            mp.seekTo(lastFramePosition)
+                            // Then pause to hold on that frame
+                            mp.pause()
+                        }
+                    }
+                    
+                    start()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                mediaPlayer?.release()
+                mediaPlayer = null
             }
             try {
                 val file = File("$filesDir/unmute")

@@ -99,15 +99,44 @@ class MainActivity : Activity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK && data.data != null) {
             val uri: Uri = data.data!!
-            this.openFileOutput(
-                "video_live_wallpaper_file_path",
-                Context.MODE_PRIVATE
-            ).use {
-                it.write(getPath(this, uri)!!.toByteArray())
+            try {
+                // Copy the video file to internal storage
+                contentResolver.openInputStream(uri)?.use { input ->
+                    val filename = "wallpaper_video.mp4"
+                    val file = File(filesDir, filename)
+                    
+                    // Delete old file if it exists
+                    if (file.exists()) {
+                        file.delete()
+                    }
+                    
+                    // Copy new file
+                    FileOutputStream(file).use { output ->
+                        input.copyTo(output)
+                    }
+                    
+                    // Save the internal file path
+                    this.openFileOutput(
+                        "video_live_wallpaper_file_path",
+                        Context.MODE_PRIVATE
+                    ).use {
+                        it.write(file.absolutePath.toByteArray())
+                    }
+                    
+                    // Set as wallpaper
+                    VideoLiveWallpaperService.setToWallPaper(this)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                // Show error dialog
+                AlertDialog.Builder(this)
+                    .setTitle("Error")
+                    .setMessage("Failed to set video as wallpaper. Please try another video file.")
+                    .setPositiveButton("OK", null)
+                    .show()
             }
-            VideoLiveWallpaperService.setToWallPaper(this)
         }
     }
 }
