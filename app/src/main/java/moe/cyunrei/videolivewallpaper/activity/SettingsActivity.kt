@@ -15,9 +15,9 @@ import java.io.IOException
 
 class SettingsActivity : PreferenceActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        val prefs = getSharedPreferences("moe.cyunrei.videolivewallpaper_preferences", MODE_PRIVATE)
-        val themeMode = prefs.getString("theme_mode", "light")
-        val materialYou = prefs.getBoolean("material_you_dynamic", true)
+        val themePrefs = getSharedPreferences("moe.cyunrei.videolivewallpaper_preferences", MODE_PRIVATE)
+        val themeMode = themePrefs.getString("theme_mode", "light")
+        val materialYou = themePrefs.getBoolean("material_you_dynamic", true)
         when (themeMode) {
             "light" -> setTheme(R.style.Theme_VideoLiveWallpaper)
             "dark" -> setTheme(R.style.Theme_VideoLiveWallpaper_Dark)
@@ -26,7 +26,7 @@ class SettingsActivity : PreferenceActivity() {
         // Material You dynamic theming can be handled here if needed
         super.onCreate(savedInstanceState)
         addPreferencesFromResource(R.xml.settings)
-            val prefs = preferenceManager.sharedPreferences
+        val prefs = preferenceManager.sharedPreferences
             // Video looping toggle
             val loopPref = findPreference("video_looping") as SwitchPreference
             loopPref.isChecked = prefs.getBoolean("video_looping", false)
