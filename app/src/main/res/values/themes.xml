@@ -18,7 +18,7 @@
         <item name="android:colorAccent">@color/material_dynamic_secondary</item>
         <item name="android:buttonStyle">@style/Widget.Material3.Button</item>
         <item name="android:editTextStyle">@style/Widget.Material3.TextInputLayout.OutlinedBox</item>
-        <item name="android:cardViewStyle">@style/Widget.Material3.CardView</item>
+    <!-- Removed cardViewStyle: not available in Material3 -->
         <item name="android:dialogTheme">@style/ThemeOverlay.Material3.Dialog</item>
     </style>
 </resources>
