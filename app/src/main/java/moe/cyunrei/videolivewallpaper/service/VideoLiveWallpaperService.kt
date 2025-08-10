@@ -34,13 +34,19 @@ class VideoLiveWallpaperService : WallpaperService() {
 
         override fun onSurfaceCreated(holder: SurfaceHolder) {
             super.onSurfaceCreated(holder)
+                val prefs = getSharedPreferences("moe.cyunrei.videolivewallpaper_preferences", Context.MODE_PRIVATE)
+                val looping = prefs.getBoolean("video_looping", false)
             mediaPlayer = MediaPlayer().apply {
                 setSurface(holder.surface)
                 setDataSource(videoFilePath)
-                isLooping = true
+                    isLooping = looping
                 setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING)
                 prepare()
                 start()
+                    setOnCompletionListener { mp ->
+                        mp.pause()
+                        mp.seekTo(mp.duration - 1)
+                    }
             }
             try {
                 val file = File("$filesDir/unmute")
@@ -55,9 +61,12 @@ class VideoLiveWallpaperService : WallpaperService() {
 
         override fun onVisibilityChanged(visible: Boolean) {
             if (visible) {
-                mediaPlayer!!.start()
+                if (mediaPlayer != null && !mediaPlayer!!.isPlaying) {
+                    mediaPlayer!!.seekTo(0)
+                    mediaPlayer!!.start()
+                }
             } else {
-                mediaPlayer!!.pause()
+                mediaPlayer?.pause()
             }
         }
 

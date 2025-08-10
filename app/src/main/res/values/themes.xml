@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.VideoLiveWallpaper" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/material_dynamic_primary</item>
+        <item name="colorPrimaryVariant">@color/material_dynamic_primary_variant</item>
+        <item name="colorOnPrimary">@color/material_dynamic_on_primary</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/material_dynamic_secondary</item>
+        <item name="colorSecondaryVariant">@color/material_dynamic_secondary_variant</item>
+        <item name="colorOnSecondary">@color/material_dynamic_on_secondary</item>
+        <!-- Dark theme colors -->
+        <item name="android:windowBackground">@color/material_dynamic_background</item>
+        <item name="android:statusBarColor">@color/material_dynamic_primary_variant</item>
+        <item name="android:navigationBarColor">@color/material_dynamic_primary_variant</item>
+        <item name="android:colorBackground">@color/material_dynamic_background</item>
+        <item name="android:colorForeground">@color/material_dynamic_on_background</item>
+        <item name="android:colorAccent">@color/material_dynamic_secondary</item>
+        <item name="android:buttonStyle">@style/Widget.Material3.Button</item>
+        <item name="android:editTextStyle">@style/Widget.Material3.TextInputLayout.OutlinedBox</item>
+        <item name="android:cardViewStyle">@style/Widget.Material3.CardView</item>
+        <item name="android:dialogTheme">@style/ThemeOverlay.Material3.Dialog</item>
+    </style>
+</resources>

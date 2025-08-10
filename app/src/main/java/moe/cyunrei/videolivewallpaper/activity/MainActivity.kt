@@ -23,6 +23,15 @@ class MainActivity : Activity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
+        val prefs = getSharedPreferences("moe.cyunrei.videolivewallpaper_preferences", Context.MODE_PRIVATE)
+        val themeMode = prefs.getString("theme_mode", "light")
+        val materialYou = prefs.getBoolean("material_you_dynamic", true)
+        when (themeMode) {
+            "light" -> setTheme(R.style.Theme_VideoLiveWallpaper)
+            "dark" -> setTheme(R.style.Theme_VideoLiveWallpaper_Dark)
+            "amoled" -> setTheme(R.style.Theme_VideoLiveWallpaper_Dark)
+        }
+        // Material You dynamic theming can be handled here if needed
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
         permissionCheck

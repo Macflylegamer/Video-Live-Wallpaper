@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="enable_video_looping">Enable video looping</string>
+    <string name="disable_video_looping">Disable video looping</string>
+    <string name="theme_mode">Theme mode</string>
+    <string name="theme_mode_light">Light</string>
+    <string name="theme_mode_dark">Dark</string>
+    <string name="theme_mode_amoled">AMOLED</string>
+    <string name="material_you_dynamic">Material You dynamic theming</string>
+    <string name="enable_material_you">Enable Material You</string>
+    <string name="disable_material_you">Disable Material You</string>
     <string name="about">About</string>
     <string name="add_path">Add Video File Path</string>
     <string name="app_name">VideoLiveWallpaper</string>

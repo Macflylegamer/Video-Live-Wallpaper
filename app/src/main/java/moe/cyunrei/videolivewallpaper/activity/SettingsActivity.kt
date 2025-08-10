@@ -15,8 +15,41 @@ import java.io.IOException
 
 class SettingsActivity : PreferenceActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        val prefs = getSharedPreferences("moe.cyunrei.videolivewallpaper_preferences", MODE_PRIVATE)
+        val themeMode = prefs.getString("theme_mode", "light")
+        val materialYou = prefs.getBoolean("material_you_dynamic", true)
+        when (themeMode) {
+            "light" -> setTheme(R.style.Theme_VideoLiveWallpaper)
+            "dark" -> setTheme(R.style.Theme_VideoLiveWallpaper_Dark)
+            "amoled" -> setTheme(R.style.Theme_VideoLiveWallpaper_Dark)
+        }
+        // Material You dynamic theming can be handled here if needed
         super.onCreate(savedInstanceState)
         addPreferencesFromResource(R.xml.settings)
+            val prefs = preferenceManager.sharedPreferences
+            // Video looping toggle
+            val loopPref = findPreference("video_looping") as SwitchPreference
+            loopPref.isChecked = prefs.getBoolean("video_looping", false)
+            loopPref.onPreferenceChangeListener = OnPreferenceChangeListener { _, newValue ->
+                prefs.edit().putBoolean("video_looping", newValue as Boolean).apply()
+                true
+            }
+            // Theme mode selection
+            val themePref = findPreference("theme_mode") as android.preference.ListPreference
+            themePref.value = prefs.getString("theme_mode", "light")
+            themePref.onPreferenceChangeListener = OnPreferenceChangeListener { _, newValue ->
+                prefs.edit().putString("theme_mode", newValue as String).apply()
+                recreate()
+                true
+            }
+            // Material You dynamic theming toggle
+            val materialYouPref = findPreference("material_you_dynamic") as SwitchPreference
+            materialYouPref.isChecked = prefs.getBoolean("material_you_dynamic", true)
+            materialYouPref.onPreferenceChangeListener = OnPreferenceChangeListener { _, newValue ->
+                prefs.edit().putBoolean("material_you_dynamic", newValue as Boolean).apply()
+                recreate()
+                true
+            }
         (findPreference(this.resources.getString(R.string.preference_play_video_with_sound)) as SwitchPreference).apply {
             this.onPreferenceChangeListener =
                 OnPreferenceChangeListener { _, _ ->

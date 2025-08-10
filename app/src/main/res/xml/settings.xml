@@ -3,12 +3,31 @@
     <PreferenceCategory android:title="@string/wallpaper_settings">
         <SwitchPreference
             android:defaultValue="false"
+            android:key="video_looping"
+            android:title="@string/enable_video_looping"
+            android:summaryOff="@string/disable_video_looping"
+            android:summaryOn="@string/enable_video_looping"/>
+        <SwitchPreference
+            android:defaultValue="false"
             android:key="play_video_with_sound"
             android:title="@string/play_video_with_sound"
             android:summaryOff="@string/disable"
             android:summaryOn="@string/enable"/>/>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/applications_settings">
+        <ListPreference
+            android:key="theme_mode"
+            android:title="@string/theme_mode"
+            android:defaultValue="light"
+            android:entries="@array/theme_mode_entries"
+            android:entryValues="@array/theme_mode_values"
+            android:summary="@string/theme_mode" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="material_you_dynamic"
+            android:title="@string/material_you_dynamic"
+            android:summaryOff="@string:disable_material_you"
+            android:summaryOn="@string:enable_material_you"/>
     <SwitchPreference
         android:defaultValue="false"
         android:key="hide_icon_from_launcher"
