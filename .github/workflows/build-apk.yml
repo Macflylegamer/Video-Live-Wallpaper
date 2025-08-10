@@ -23,7 +23,7 @@ jobs:
       
       - name: Configure Gradle properties
         run: |
-          echo "android.suppressUnsupportedCompileSdk=34" >> gradle.properties
+          echo -e "\nandroid.suppressUnsupportedCompileSdk=34" >> gradle.properties
           
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
