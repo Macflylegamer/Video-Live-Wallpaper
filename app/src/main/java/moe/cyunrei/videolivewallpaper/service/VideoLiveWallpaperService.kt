@@ -20,7 +20,7 @@ class VideoLiveWallpaperService : WallpaperService() {
                 this@VideoLiveWallpaperService.openFileInput("video_live_wallpaper_file_path")
                     .bufferedReader().readText()
             val intentFilter = IntentFilter(VIDEO_PARAMS_CONTROL_ACTION)
-            registerReceiver(object : BroadcastReceiver() {
+            val receiver = object : BroadcastReceiver() {
                 override fun onReceive(context: Context, intent: Intent) {
                     val action = intent.getBooleanExtra(KEY_ACTION, false)
                     if (action) {
@@ -29,7 +29,8 @@ class VideoLiveWallpaperService : WallpaperService() {
                         mediaPlayer!!.setVolume(1.0f, 1.0f)
                     }
                 }
-            }.also { broadcastReceiver = it }, intentFilter)
+            }.also { broadcastReceiver = it }
+            registerReceiver(receiver, intentFilter, Context.RECEIVER_NOT_EXPORTED)
         }
 
         override fun onSurfaceCreated(holder: SurfaceHolder) {

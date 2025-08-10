@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="material_dynamic_primary">#BB86FC</color>
-    <color name="material_dynamic_primary_variant">#3700B3</color>
-    <color name="material_dynamic_on_primary">#FFFFFF</color>
-    <color name="material_dynamic_secondary">#03DAC6</color>
-    <color name="material_dynamic_secondary_variant">#018786</color>
-    <color name="material_dynamic_on_secondary">#000000</color>
-    <color name="material_dynamic_background">#121212</color>
-    <color name="material_dynamic_on_background">#FFFFFF</color>
+    <color name="ios_blue">#007AFF</color>
+    <color name="ios_blue_dark">#0051A8</color>
+    <color name="ios_gray">#8E8E93</color>
+    <color name="ios_gray_dark">#636366</color>
+    <color name="ios_green">#34C759</color>
+    <color name="ios_background">#F2F2F7</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="black_alpha_30">#4D000000</color>
 </resources>

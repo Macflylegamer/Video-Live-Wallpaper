@@ -6,40 +6,60 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
+    android:padding="24dp"
+    android:clipToPadding="false"
     tools:ignore="UnusedAttribute">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/choose_video_file"
-        android:layout_width="200dp"
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:text="@string/choose_video_file"
-        android:textAllCaps="false"
-        app:cornerRadius="24dp"
-        style="@style/Widget.Material3.Button" />
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/add_video_file_path"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:text="@string/add_video_file_path"
-        android:textAllCaps="false"
-        app:cornerRadius="24dp"
-        style="@style/Widget.Material3.Button" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/choose_video_file"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/choose_video_file"
+            android:textAllCaps="false"
+            style="@style/Widget.App.Button" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/settings"
-        android:layout_width="200dp"
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:text="@string/settings"
-        android:textAllCaps="false"
-        app:cornerRadius="24dp"
-        style="@style/Widget.Material3.Button" />
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/add_video_file_path"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/add_video_file_path"
+            android:textAllCaps="false"
+            style="@style/Widget.App.Button" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/settings"
+            android:textAllCaps="false"
+            style="@style/Widget.App.Button" />
+    </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>
-
