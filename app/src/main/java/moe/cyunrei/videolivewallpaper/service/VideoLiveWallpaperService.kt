@@ -40,14 +40,24 @@ class VideoLiveWallpaperService : WallpaperService() {
             mediaPlayer = MediaPlayer().apply {
                 setSurface(holder.surface)
                 setDataSource(videoFilePath)
-                    isLooping = looping
+                isLooping = looping
                 setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING)
                 prepare()
-                start()
-                    setOnCompletionListener { mp ->
+                // Get the duration before starting playback
+                val duration = this.duration
+                // Calculate the timestamp of the last frame (seek to 99.9% of the duration to ensure we get the last frame)
+                val lastFramePosition = (duration * 0.999).toInt()
+                
+                setOnCompletionListener { mp ->
+                    if (!looping) {
+                        // First seek to the calculated last frame position
+                        mp.seekTo(lastFramePosition)
+                        // Then pause to hold on that frame
                         mp.pause()
-                        mp.seekTo(mp.duration - 1)
                     }
+                }
+                
+                start()
             }
             try {
                 val file = File("$filesDir/unmute")
@@ -61,10 +71,16 @@ class VideoLiveWallpaperService : WallpaperService() {
         }
 
         override fun onVisibilityChanged(visible: Boolean) {
+            val prefs = getSharedPreferences("moe.cyunrei.videolivewallpaper_preferences", Context.MODE_PRIVATE)
+            val looping = prefs.getBoolean("video_looping", false)
+            
             if (visible) {
                 if (mediaPlayer != null && !mediaPlayer!!.isPlaying) {
-                    mediaPlayer!!.seekTo(0)
-                    mediaPlayer!!.start()
+                    // Only start from beginning if looping is enabled
+                    if (looping) {
+                        mediaPlayer!!.seekTo(0)
+                        mediaPlayer!!.start()
+                    }
                 }
             } else {
                 mediaPlayer?.pause()
