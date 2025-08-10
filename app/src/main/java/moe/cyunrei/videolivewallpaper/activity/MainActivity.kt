@@ -17,6 +17,9 @@ import androidx.core.content.ContextCompat
 import moe.cyunrei.videolivewallpaper.R
 import moe.cyunrei.videolivewallpaper.service.VideoLiveWallpaperService
 import moe.cyunrei.videolivewallpaper.utils.DocumentUtils.getPath
+import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
 
 
 class MainActivity : Activity() {
